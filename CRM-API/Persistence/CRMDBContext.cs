@@ -6,7 +6,7 @@ namespace CRM_API;
 
 public class CRMDBContext : DbContext
 {
-    public DbSet<EUser> Users { get; set; }
+    public DbSet<ECustomer> Customers { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -16,7 +16,7 @@ public class CRMDBContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new UserScheme());
+        modelBuilder.ApplyConfiguration(new CustomerScheme());
         base.OnModelCreating(modelBuilder);
     }
 }

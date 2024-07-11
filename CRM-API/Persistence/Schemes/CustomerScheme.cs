@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CRM_API.Schemes;
 
-public class UserScheme : IEntityTypeConfiguration<EUser>
+public class CustomerScheme : IEntityTypeConfiguration<ECustomer>
 {
-    public void Configure(EntityTypeBuilder<EUser> builder)
+    public void Configure(EntityTypeBuilder<ECustomer> builder)
     {
         builder.Property(p => p.Id).IsRequired();
         builder.Property(p => p.CreatedAt).IsRequired();

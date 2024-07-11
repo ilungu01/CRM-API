@@ -1,6 +1,6 @@
 ﻿namespace CRM_API.Entities;
 
-public class EUser : EBase
+public class ECustomer : EBase
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
