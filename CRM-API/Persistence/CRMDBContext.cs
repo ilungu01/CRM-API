@@ -6,21 +6,12 @@ namespace CRM_API;
 
 public class CRMDBContext : DbContext
 {
-    private readonly IConfiguration _configuration;
-    
     public DbSet<EUser> Users { get; set; }
-
-    public CRMDBContext(DbContextOptions<CRMDBContext> options, IConfiguration configuration) : base(options)
-    {
-        _configuration = configuration;
-    }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if (!optionsBuilder.IsConfigured)
-        {
-            optionsBuilder.UseMySQL(_configuration.GetConnectionString("DefaultConnection"));
-        }
+        optionsBuilder.UseMySQL("server=localhost;database=customer_relationship_management;user=root;password=admin");
+        base.OnConfiguring(optionsBuilder);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
