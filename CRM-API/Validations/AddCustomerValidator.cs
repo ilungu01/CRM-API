@@ -7,9 +7,9 @@ public class AddCustomerValidator : AbstractValidator<DCustomer>
 {
     public AddCustomerValidator()
     {
-        RuleFor(user => user.FirstName).NotNull().NotEmpty();
-        RuleFor(user => user.LastName).NotNull().NotEmpty();
-        RuleFor(user => user.Address).NotNull().NotEmpty();
-        RuleFor(user => user.Age).NotNull().NotEmpty();
+        RuleFor(customer => customer.FirstName).NotNull().NotEmpty();
+        RuleFor(customer => customer.LastName).NotNull().NotEmpty();
+        RuleFor(customer => customer.Address).NotNull().NotEmpty();
+        RuleFor(customer => customer.Age).NotNull().NotEmpty();
     }
 }
