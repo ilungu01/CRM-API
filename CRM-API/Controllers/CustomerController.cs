@@ -17,12 +17,26 @@ public class CustomerController : ControllerBase
         _customerService = new CustomerService();
     }
 
-    [HttpGet("{name}")]
-    public ActionResult<List<DCustomer>> GetCustomerByName(string name)
+    [HttpGet("byName/{name}")]
+    public ActionResult<List<DCustomer>> GetCustomerByName([FromRoute] string name)
     {
         try
         {
             return Ok(_customerService.GetCustomerByName(name));
+        }
+        catch (ValidationException e)
+        {
+            return BadRequest(e.Errors);
+        }
+    }
+
+    [HttpPut("{id}")]
+    public ActionResult<DCustomer> UpdateCustomer([FromRoute] int id, [FromBody] DCustomer updatedCustomerData)
+    {
+        try
+        {
+            updatedCustomerData.Id = id;
+            return Ok(_customerService.UpdateCustomer(id,updatedCustomerData));
         }
         catch (ValidationException e)
         {
@@ -44,11 +58,20 @@ public class CustomerController : ControllerBase
         }
     }
 
+    [HttpGet("{id}")]
+    public ActionResult<DCustomer> GetCustomerById([FromRoute] int id)
+    {
+        return _customerService.GetCustomerById(id);
+    }
+
     [HttpDelete("{id}")]
     public ActionResult DeleteCustomer([FromRoute] int id)
     {
         try
         {
+            var customer = new DCustomer();
+            customer.Id = id;
+            _customerService.DeleteCustomer(customer);
             return Ok("Customer was deleted");
         }
         catch (ValidationException e)
