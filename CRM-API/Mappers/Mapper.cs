@@ -12,7 +12,7 @@ public class Mapper
     {
         return new MapperConfiguration(config =>
         {
-            config.CreateMap<DUser, EUser>().ReverseMap();
+            config.CreateMap<DCustomer, ECustomer>().ReverseMap();
         }).CreateMapper();
     }
 }

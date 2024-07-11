@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace CRM_API.Validations;
 
-public class AddUserValidator : AbstractValidator<DUser>
+public class AddCustomerValidator : AbstractValidator<DCustomer>
 {
-    public AddUserValidator()
+    public AddCustomerValidator()
     {
         RuleFor(user => user.FirstName).NotNull().NotEmpty();
         RuleFor(user => user.LastName).NotNull().NotEmpty();
