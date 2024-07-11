@@ -15,5 +15,6 @@ public class UserScheme : IEntityTypeConfiguration<EUser>
         builder.Property(p => p.Address).IsRequired().HasMaxLength(255);
         builder.Property(p => p.Email).HasMaxLength(255);
         builder.Property(p => p.Mobile).HasMaxLength(13);
+        builder.Property(p => p.Age).IsRequired();
     }
 }

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRM_API.Migrations
 {
     [DbContext(typeof(CRMDBContext))]
-    [Migration("20240710205133_InitialCreate")]
+    [Migration("20240711112002_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
