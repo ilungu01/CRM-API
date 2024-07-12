@@ -6,11 +6,11 @@ namespace CRM_API.Validations;
 
 public class DeleteCustomerValidator : AbstractValidator<DCustomer>
 {
-    private readonly CustomerRepository _customerRepository;
+    private readonly ICustomerRepository _customerRepository;
 
-    public DeleteCustomerValidator()
+    public DeleteCustomerValidator(ICustomerRepository customerRepository)
     {
-        _customerRepository = new CustomerRepository();
-        RuleFor(user => user.Id).Must(id => _customerRepository.GetCustomerById(id) != null).NotNull();
+        _customerRepository = customerRepository;
+        RuleFor(user => user.Id).Must(id => _customerRepository.GetById(id) != null).NotNull();
     }
 }

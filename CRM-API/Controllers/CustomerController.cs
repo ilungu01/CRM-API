@@ -10,11 +10,11 @@ namespace CRM_API.Controllers;
 public class CustomerController : ControllerBase
 {
 
-    private readonly CustomerService _customerService;
+    private readonly ICustomerService _customerService;
 
-    public CustomerController()
+    public CustomerController(ICustomerService customerService)
     {
-        _customerService = new CustomerService();
+        _customerService = customerService;
     }
 
     [HttpGet("byName/{name}")]
@@ -56,6 +56,12 @@ public class CustomerController : ControllerBase
         {
             return BadRequest(e.Errors);
         }
+    }
+
+    [HttpGet]
+    public ActionResult<List<DCustomer>> GetAllCustomers()
+    {
+        return Ok(_customerService.GetAllCustomers());
     }
 
     [HttpGet("{id}")]
