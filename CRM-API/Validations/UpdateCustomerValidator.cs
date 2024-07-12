@@ -6,12 +6,12 @@ namespace CRM_API.Validations;
 
 public class UpdateCustomerValidator : AbstractValidator<DCustomer>
 {
-    private readonly CustomerRepository _customerRepository;
+    private readonly ICustomerRepository _customerRepository;
 
-    public UpdateCustomerValidator()
+    public UpdateCustomerValidator(ICustomerRepository customerRepository)
     {
-        _customerRepository = new CustomerRepository();
-        RuleFor(customer => customer.Id).Must(id => _customerRepository.GetCustomerById(id) != null);
+        _customerRepository = customerRepository;
+        RuleFor(customer => customer.Id).Must(id => _customerRepository.GetById(id) != null);
         RuleFor(customer => customer.FirstName).NotNull().NotEmpty().Matches("^[a-zA-Z+$]");
         RuleFor(customer => customer.LastName).NotNull().NotEmpty().Matches("^[a-zA-Z+$]");
         RuleFor(customer => customer.Address).NotNull().NotEmpty();
