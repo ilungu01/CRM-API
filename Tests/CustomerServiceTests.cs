@@ -21,13 +21,11 @@ public class CustomerServiceTests
     public CustomerServiceTests()
     {
         _customerRepositoryMock = new Mock<ICustomerRepository>();
-        _addValidatorMock = new AddCustomerValidator();
         _updateValidatorMock = new Mock<IValidator<DCustomer>>();
         _deleteValidatorMock = new Mock<IValidator<DCustomer>>();
         _getCustomersByNameValidator = new Mock<IValidator<string>>();
         _customerService = new CustomerService(
             _customerRepositoryMock.Object,
-            _addValidatorMock,
             _getCustomersByNameValidator.Object,
             _deleteValidatorMock.Object,
             _updateValidatorMock.Object

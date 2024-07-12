@@ -10,19 +10,21 @@ namespace CRM_API.Controllers;
 public class CustomerController : ControllerBase
 {
 
-    private readonly ICustomerService _customerService;
+    private readonly ICustomerServiceFactory _customerServiceFactory;
 
-    public CustomerController(ICustomerService customerService)
+    public CustomerController(ICustomerServiceFactory customerServiceFactory)
     {
-        _customerService = customerService;
+        _customerServiceFactory = customerServiceFactory;
     }
 
+    private ICustomerService CustomerService => _customerServiceFactory.CreateCustomerService();
+    
     [HttpGet("byName/{name}")]
     public ActionResult<List<DCustomer>> GetCustomerByName([FromRoute] string name)
     {
         try
         {
-            return Ok(_customerService.GetCustomerByName(name));
+            return Ok(CustomerService.GetCustomerByName(name));
         }
         catch (ValidationException e)
         {
@@ -36,7 +38,7 @@ public class CustomerController : ControllerBase
         try
         {
             updatedCustomerData.Id = id;
-            return Ok(_customerService.UpdateCustomer(id,updatedCustomerData));
+            return Ok(CustomerService.UpdateCustomer(id,updatedCustomerData));
         }
         catch (ValidationException e)
         {
@@ -49,7 +51,7 @@ public class CustomerController : ControllerBase
     {
         try
         {
-            _customerService.AddCustomer(newCustomer);
+            CustomerService.AddCustomer(newCustomer);
             return Ok(newCustomer);
         }
         catch (ValidationException e)
@@ -61,13 +63,13 @@ public class CustomerController : ControllerBase
     [HttpGet]
     public ActionResult<List<DCustomer>> GetAllCustomers()
     {
-        return Ok(_customerService.GetAllCustomers());
+        return Ok(CustomerService.GetAllCustomers());
     }
 
     [HttpGet("{id}")]
     public ActionResult<DCustomer> GetCustomerById([FromRoute] int id)
     {
-        return _customerService.GetCustomerById(id);
+        return CustomerService.GetCustomerById(id);
     }
 
     [HttpDelete("{id}")]
@@ -77,7 +79,7 @@ public class CustomerController : ControllerBase
         {
             var customer = new DCustomer();
             customer.Id = id;
-            _customerService.DeleteCustomer(customer);
+            CustomerService.DeleteCustomer(customer);
             return Ok("Customer was deleted");
         }
         catch (ValidationException e)

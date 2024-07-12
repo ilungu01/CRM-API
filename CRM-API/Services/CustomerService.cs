@@ -17,7 +17,6 @@ public class CustomerService : ICustomerService
 
     public CustomerService(
         ICustomerRepository customerRepo,
-        IValidator<DCustomer> addCustomerValidator,
         IValidator<string> getCustomersByNameValidator,
         IValidator<DCustomer> deleteCustomerValidator,
         IValidator<DCustomer> updateCustomerValidator)
