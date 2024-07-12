@@ -61,4 +61,32 @@ public class CustomerServiceTests
         Assert.Contains(exception.Errors, error => error.PropertyName == "Age" && error.ErrorMessage == "'Age' must not be empty.");
     }
 
+    [Fact]
+    public void GetCustomersByName_WithValidName_ShouldReturnCustomers()
+    {
+        var customers = new List<ECustomer>
+        {
+            new ECustomer { Id = 1, FirstName = "John", LastName = "Doe", Address = "123 Main St", Age = 30, Email = "john.doe@example.com" },
+            new ECustomer { Id = 2, FirstName = "Jane", LastName = "Doe", Address = "456 Elm St", Age = 28, Email = "jane.doe@example.com" }
+        };
+        
+        _customerRepositoryMock.Setup(repo => repo.GetByName(It.IsAny<string>()))
+            .Returns(customers);
+       
+        var result = _customerService.GetCustomerByName("John");
+        
+        _customerRepositoryMock.Verify(repo => repo.GetByName(It.IsAny<string>()), Times.Once);
+        Assert.NotNull(result);
+        Assert.Equal(2, result.Count());
+    }
+
+    // [Fact]
+    // public void GetCustomersByName_WithInvalidName_ShouldThrowValidationException()
+    // {
+    //     var invalidName = "12312";
+    //
+    //     var exception = Assert.Throws<ValidationException>(() => _customerService.GetCustomerByName(invalidName));
+    //     Assert.Contains(exception.Errors, error => error.PropertyName == "FirstName" && error.ErrorMessage == "'First Name' must not be empty.");
+    // }
+    
 }
